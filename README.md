@@ -1,4 +1,4 @@
-# Information about this assignment
+# About this assignment
 
 This task has not been executed to find a swift implementation, but rather the goal has been to 
 demonstrate a wide variety of techniques, which the author hopes will be useful.
@@ -32,10 +32,10 @@ machine of the possible stages of matching. This turned out to be rather simple 
 slow on sparse data. The better choice was to use the new Span type and built in search. Regex was also 
 tried but it does not find interleaved matches (at least not in the .NET implementation).
 
-# Instructions
+## Instructions
 The implementation is in .NET 7 and uses some new features in C# 12 including spans and 
 generic maths. The program is ran with one argument, an absolute file path.
-## List of used top level nugets
+### List of used top level nugets
 
 Project 'FileNameCounter' has the following package references
    [net7.0]:
