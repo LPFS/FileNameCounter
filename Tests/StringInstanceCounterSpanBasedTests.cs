@@ -9,8 +9,22 @@ namespace TestProject
     {
 
         [Test]
-         public void Should_throw_on_empty()
+         public void Should_throw_on_empty_target()
            => Assert.Throws<ArgumentException>(() => { new StringInstanceCounterSpanBased(string.Empty, 16); });
+
+        [Test]
+        public async Task Should_handle_no_matches()
+        {
+            var counter = new StringInstanceCounterSpanBased("aba", 8);
+            Assert.AreEqual(0, await counter.CountAsync(new StringReader("ZZZZZZZZZZ")));
+        }
+
+        [Test]
+        public async Task Should_handle_empty_string()
+        {
+            var counter = new StringInstanceCounterSpanBased("aba", 8);
+            Assert.AreEqual(0, await counter.CountAsync(new StringReader("")));
+        }
 
         [Test]
         public async Task Should_handle_interleaved_matches()
@@ -19,13 +33,16 @@ namespace TestProject
             Assert.AreEqual(2, await counter.CountAsync(new StringReader("ababa")));
         }
 
-        [TestCase("aba3456701234567")]
-        [TestCase("______aba_______")]
-        [TestCase("_______aba______")]
-         public async Task Should_handle_border_matches(string s)
+        [TestCase("aba3456701234567", "aba", 1)]
+        [TestCase("_____aba________", "aba", 1)]
+        [TestCase("______aba_______", "aba", 1)]
+        [TestCase("_______aba______", "aba", 1)]
+        [TestCase("________aba_____", "aba", 1)]
+
+        public async Task Should_handle_border_matches(string s, string target, int expected)
         {
-            var counter = new StringInstanceCounterSpanBased("aba", 8);
-            Assert.AreEqual(1, await counter.CountAsync(new StringReader(s)));
+            var counter = new StringInstanceCounterSpanBased(target, 8);
+            Assert.AreEqual(expected, await counter.CountAsync(new StringReader(s)));
         }
 
         [Test]

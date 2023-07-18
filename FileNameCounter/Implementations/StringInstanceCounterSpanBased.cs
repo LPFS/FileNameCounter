@@ -25,7 +25,7 @@ namespace FileNameCounter.Implementations
     {
         private readonly int _bufferSize;
         private readonly int _copyZoneLength;
-        private readonly int _higherBufferStart;
+        private readonly int _fromZoneStart;
         private readonly string _target;
 
         public StringInstanceCounterSpanBased(string target, int bufferSize)
@@ -36,7 +36,7 @@ namespace FileNameCounter.Implementations
             if (string.IsNullOrEmpty(target)) throw new ArgumentException("Searching for empty string not allowed.", nameof(target));
             _bufferSize = bufferSize;
             _copyZoneLength = target.Length - 1;
-            _higherBufferStart = _copyZoneLength + _bufferSize;
+            _fromZoneStart = 2 * bufferSize;
             _target = target;
         }
         
@@ -74,7 +74,7 @@ namespace FileNameCounter.Implementations
         private static bool HigherBufferUsed(long i)
             => i % 2 == 1;
 
-        private const int _copyZoneStart = 0;
+        private const int _toZoneStart = 0;
 
         
         private long Count(char[] buffer, int readChars, long i)
@@ -86,8 +86,8 @@ namespace FileNameCounter.Implementations
             {
                 if (HigherBufferUsed(i))
                 {
-                    Array.Copy(buffer, _higherBufferStart,
-                               buffer, _copyZoneStart,
+                    Array.Copy(buffer, _fromZoneStart,
+                               buffer, _toZoneStart,
                                _copyZoneLength);
                 }
 
