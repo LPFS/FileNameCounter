@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FileNameCounter": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\patri\\Documents\\Antura\\aba.txt"
+    }
+  }
+}
