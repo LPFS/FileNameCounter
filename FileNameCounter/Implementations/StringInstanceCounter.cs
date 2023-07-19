@@ -114,7 +114,7 @@ namespace FileNameCounter.Implementations
 
                 int nofCharsRead;
                 var buffer = new char[_bufferSize];
-                while ((nofCharsRead = reader.ReadBlockAsync(buffer, 0, 1024).Result) != 0)
+                while ((nofCharsRead = reader.ReadBlockAsync(buffer, 0, _bufferSize).Result) != 0)
                 {
                     for (int i = 0; i < nofCharsRead; i++)
                     {
