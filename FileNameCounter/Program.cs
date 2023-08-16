@@ -21,8 +21,8 @@ public static class ProgramHelper
     {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder();
         builder.Services.AddSingleton<IArgumentProcessor, ArgumentProcessor>();
-        builder.Services.AddSingleton<IStringInstanceCounterFactory, StringInstanceCounterSpanBasedFactory>(
-            p => new StringInstanceCounterSpanBasedFactory(1024));
+        builder.Services.AddSingleton<IStringInstanceCounterFactory, StringInstanceCounterSpanBasedSimplifiedFactory>(
+            p => new StringInstanceCounterSpanBasedSimplifiedFactory(1024));
         builder.Services.AddSingleton<IMain, Main>();
         return builder;
     }
